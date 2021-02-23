@@ -1,8 +1,4 @@
-# sse
-SSE demo with Vue.js client
-
-# chat
-
+# sse-demo
 ## Project setup
 ```
 yarn install
