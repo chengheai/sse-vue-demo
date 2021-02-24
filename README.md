@@ -1,28 +1,19 @@
 # sse-demo
-## Project setup
+## 安装
+npm install
+## 启动
+```shell
+npm run serve
 ```
-yarn install
+## 服务
+```shell
+node server/index.js
 ```
-
-### Compiles and hot-reloads for development
+## 视频页面
+```shell
+http://localhost:8080/video
 ```
-yarn run serve
+## 切换视频
+```shell
+http://localhost:8080/chat
 ```
-
-### Compiles and minifies for production
-```
-yarn run build
-```
-
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
