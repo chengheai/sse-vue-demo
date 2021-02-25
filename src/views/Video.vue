@@ -1,11 +1,20 @@
 <template>
   <div class="video-wrapper">
     <video
-      :autoplay="true"
+      autoplay="autoplay"
       loop
+      muted
       controls
       :src="url"
     />
+    <!-- <iframe
+      allow="autoplay"
+      style="border: none;"
+      width="100%"
+      height="600"
+      title=""
+      :src="url"
+    /> -->
     <!-- {{ messages }} -->
   </div>
 </template>
