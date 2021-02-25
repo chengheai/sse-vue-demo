@@ -1,9 +1,10 @@
 <template>
   <div class="video-wrapper">
     <video
+      id="my-video"
       autoplay="autoplay"
       loop
-      muted
+      :muted="true"
       controls
       :src="url"
     />
@@ -23,7 +24,9 @@
 import { mapActions, mapGetters } from 'vuex'
 export default {
   data() {
-    return {}
+    return {
+      isMuted: true
+    }
   },
   computed: {
     ...mapGetters(['login', 'messages']),
@@ -39,6 +42,13 @@ export default {
     eventSource.onmessage = function(event) {
       pushMessageAction(JSON.parse(event.data))
     }
+  },
+  mounted() {
+    // setTimeout(() => {
+    //   this.isMuted = false
+    //   let vdo = document.getElementById('my-video')
+    //   vdo.play()
+    // }, 500)
   },
   methods: {
     ...mapActions(['pushMessageAction'])
