@@ -28,7 +28,7 @@ export default {
   computed: mapGetters(['login', 'messages']),
   created() {
     const pushMessageAction = this.pushMessageAction
-    const eventSource = new EventSource('http://localhost:4000/sse')
+    const eventSource = new EventSource(`${process.env.VUE_APP_BASE_API}/sse`)
     eventSource.onmessage = function(event) {
       pushMessageAction(JSON.parse(event.data))
     }
@@ -47,7 +47,7 @@ export default {
         this.$message.warning('mp4格式错误')
         return
       }
-      fetch('http://localhost:4000/send', {
+      fetch(`${process.env.VUE_APP_BASE_API}/send`, {
         headers: {
           'Content-Type': 'application/json'
         },

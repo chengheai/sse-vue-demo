@@ -38,7 +38,7 @@ export default {
   },
   created() {
     const pushMessageAction = this.pushMessageAction
-    const eventSource = new EventSource('http://localhost:4000/sse')
+    const eventSource = new EventSource(`${process.env.VUE_APP_BASE_API}/sse`)
     eventSource.onmessage = function(event) {
       pushMessageAction(JSON.parse(event.data))
     }
