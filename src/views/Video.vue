@@ -2,7 +2,7 @@
   <div class="video-wrapper">
     <video
       id="my-video"
-      autoplay="autoplay"
+      autoplay
       loop
       :muted="true"
       controls
