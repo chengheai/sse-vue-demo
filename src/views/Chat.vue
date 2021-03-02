@@ -6,10 +6,32 @@
 			</div>
 		</div> -->
 
-    <div class="controls">
+    <!-- <div class="controls">
       <el-input v-model="message" placeholder="请输入视频URL" />
       <el-button type="primary" style="margin-left:15px" @click="sendMessage">发 送</el-button>
-    </div>
+    </div> -->
+    <el-form
+      ref="ruleForm"
+      :model="ruleForm"
+      :rules="rules"
+      label-suffix=":"
+      label-width="100px"
+      class="demo-ruleForm"
+    >
+      <el-form-item label="名字" prop="name">
+        <el-input v-model="ruleForm.name" placeholder="请输入名字" />
+      </el-form-item>
+      <el-form-item label="图片地址" prop="pic_url">
+        <el-input v-model="ruleForm.pic_url" placeholder="请输入图片URL" />
+      </el-form-item>
+      <el-form-item label="视频地址" prop="video_url">
+        <el-input v-model="ruleForm.video_url" placeholder="请输入视频URL" />
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="submitForm('ruleForm')">发 送</el-button>
+        <el-button @click="resetForm('ruleForm')">重 置</el-button>
+      </el-form-item>
+    </el-form>
   </div>
 </template>
 
@@ -22,6 +44,22 @@ export default {
   name: 'Chat',
   data() {
     return {
+      ruleForm: {
+        name: '赵奕欢',
+        pic_url: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3832721317,312397218&fm=26&gp=0.jpg',
+        video_url: 'https://v-cdn.zjol.com.cn/276984.mp4'
+      },
+      rules: {
+        name: [
+          { required: true, message: '请输入名称', trigger: 'change' }
+        ],
+        pic_url: [
+          { required: true, message: '请输入图片URL', trigger: 'change' }
+        ],
+        video_url: [
+          { required: true, message: '请输入视频URL', trigger: 'change' }
+        ]
+      },
       message: 'https://v-cdn.zjol.com.cn/276984.mp4'
     }
   },
@@ -41,8 +79,22 @@ export default {
     }
   },
   methods: {
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.sendMessage()
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields()
+    },
     sendMessage() {
-      const notMP4 = this.message.split('.')[this.message.split('.').length - 1] !== 'mp4'
+      const { video_url } = this.ruleForm
+      const notMP4 = video_url.split('.')[video_url.split('.').length - 1] !== 'mp4'
       if (notMP4) {
         this.$message.warning('mp4格式错误')
         return
@@ -54,10 +106,9 @@ export default {
         method: 'POST',
         body: JSON.stringify({
           user: this.login,
-          message: this.message
+          message: this.ruleForm
         })
       })
-      this.message = ''
       this.$message.success('已发送')
     },
     ...mapActions(['pushMessageAction'])
@@ -76,7 +127,9 @@ export default {
   width: 100%;
   height: 100vh;
 }
-
+.demo-ruleForm{
+  width: 60%;
+}
 .messages {
   flex: 1;
   padding: 10px;
